@@ -36,6 +36,7 @@ tooley_p = round((tooley / total_votes) * 100,2)
 field = {"Khan":khan,"correy":correy,"li":li,"tooley":tooley}
 
 winner = max(field, key=field.get)
+#%%
 
 file = open('PollingData.txt','w') 
 file.write("Election Results")
