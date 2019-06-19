@@ -58,7 +58,7 @@ avg_purch_per_person = total_purch_by_gender / count_by_gender
 
 
 
-age_bins = [0, 9.90, 14.99, 19.99, 24.99, 29.99, 34.99, 39.99, 150]
+age_bins = [0, 9.99, 14.99, 19.99, 24.99, 29.99, 34.99, 39.99, 150]
 group_names = ["<10", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40+"]
 
 
@@ -92,10 +92,10 @@ by_spender = main_data.groupby("SN")
 
 purchase_count_spender = by_spender["Purchase ID"].count()
 
-# Calculate the average purchase by name 
+
 avg_purchase_price_spender = by_spender["Price"].mean()
 
-# Calculate purchase total 
+
 purchase_total_spender = by_spender["Price"].sum()
 
 
@@ -112,7 +112,6 @@ purchase_value = (item_stats["Price"].sum())
 
 item_price = purchase_value/purchase_count_item
 
-#%%
 most_popular_items = pd.DataFrame({"Purchase Count": purchase_count_item, 
                                    "Item Price": item_price,
                                    "Total Purchase Value":purchase_value})
