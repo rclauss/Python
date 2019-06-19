@@ -1,0 +1,132 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jun 17 18:08:26 2019
+
+@author: rick
+"""
+
+import pandas as pd
+import numpy as np
+
+
+
+
+main_data = pd.read_csv("purchase_data.csv")
+
+
+
+# Player Count
+total_players_length = len(main_data["SN"].unique())
+
+
+
+#Unique Items
+unique_items = len(main_data["Item Name"].unique())
+
+#Avg Pruchase Price
+avg_purchase_price = round(np.mean(main_data["Price"]),3)
+
+
+#Total Num of Purchaes
+total_num_purchases = len(main_data)
+
+#Total REvenue
+total_revenue = round(sum(main_data["Price"]),2)
+
+#Percentage of Male Players
+grouped_gender = main_data.groupby("Gender")
+count_by_gender = grouped_gender.nunique()["SN"]
+
+
+
+male_count = count_by_gender[1]
+male_percent = round((male_count / count_by_gender.sum()) * 100,3)
+
+female_count = count_by_gender[0]
+female_percent = round((female_count / count_by_gender.sum()) * 100,3)
+
+other_count = count_by_gender[2]
+other_percent = round((other_count / count_by_gender.sum()) * 100,3)
+
+
+purch_by_gender = grouped_gender["Purchase ID"].count()
+avg_purch_by_gender = grouped_gender["Price"].mean()
+total_purch_by_gender = grouped_gender["Price"].sum()
+
+avg_purch_per_person = total_purch_by_gender / count_by_gender
+
+
+
+age_bins = [0, 9.90, 14.99, 19.99, 24.99, 29.99, 34.99, 39.99, 150]
+group_names = ["<10", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40+"]
+
+
+main_data["Age Grouping"] = pd.cut(main_data["Age"],age_bins, labels=group_names)
+
+by_age = main_data.groupby("Age Grouping")
+
+total_count_age = by_age["SN"].nunique()
+
+
+percentage_by_age = (total_count_age/total_players_length) * 100
+
+
+
+purch_count_age = by_age["Purchase ID"].count()
+
+
+avg_purch_price_age = by_age["Price"].mean()
+
+
+total_purchase_value = by_age["Price"].sum()
+
+
+avg_purchase_per_person_age = total_purchase_value/total_count_age
+
+
+
+
+by_spender = main_data.groupby("SN")
+
+
+purchase_count_spender = by_spender["Purchase ID"].count()
+
+# Calculate the average purchase by name 
+avg_purchase_price_spender = by_spender["Price"].mean()
+
+# Calculate purchase total 
+purchase_total_spender = by_spender["Price"].sum()
+
+
+by_item = main_data[["Item ID", "Item Name", "Price"]]
+
+
+item_stats = by_item.groupby(["Item ID","Item Name"])
+
+
+purchase_count_item = item_stats["Price"].count()
+
+purchase_value = (item_stats["Price"].sum()) 
+
+
+item_price = purchase_value/purchase_count_item
+
+#%%
+most_popular_items = pd.DataFrame({"Purchase Count": purchase_count_item, 
+                                   "Item Price": item_price,
+                                   "Total Purchase Value":purchase_value})
+
+
+
+popular_formatted = most_popular_items.sort_values(["Total Purchase Value"],
+                                                   ascending=False).head()
+
+
+
+
+
+
+
+
+
