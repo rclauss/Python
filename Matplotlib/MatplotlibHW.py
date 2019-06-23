@@ -43,7 +43,7 @@ df_bubble = pd.concat([avg_fare, total_rides, driver_count,types], axis = 1, sor
 #%%
 df_bubble = df_bubble.rename(columns={'fare' : 'Average Fare ($)',
                                    'ride_id' : 'Total Number of Rides (Per City)',
-                                   'driver_count' : 'driver count per city',
+                                   'driver_count' : 'Driver Count per City',
                                    'type' : 'City Types'})
 #%%
 # Dataframe by city type
@@ -52,9 +52,9 @@ suburban_df = df_bubble.loc[df_bubble['City Types'] == 'Suburban', :]
 rural_df = df_bubble.loc[df_bubble['City Types'] == 'Rural', :]
 
 #%%
-urban_size = urban_df['driver count per city'] * 6
-suburban_size = suburban_df['driver count per city'] * 6
-rural_size = rural_df['driver count per city'] * 6
+urban_size = urban_df['Driver Count per City'] * 6
+suburban_size = suburban_df['Driver Count per City'] * 6
+rural_size = rural_df['Driver Count per City'] * 6
 
 ax1 = urban_df.plot(kind='scatter', x='Total Number of Rides (Per City)', y='Average Fare ($)', s=urban_size, color='lightblue', edgecolor='black', alpha=0.7, label='Urban')    
 ax2 = suburban_df.plot(kind='scatter', x='Total Number of Rides (Per City)', y='Average Fare ($)', s=suburban_size, color='gold', edgecolor='black', alpha=0.7, ax=ax1, label='Suburban')    
