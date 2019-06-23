@@ -52,12 +52,16 @@ suburban_df = df_bubble.loc[df_bubble['City Types'] == 'Suburban', :]
 rural_df = df_bubble.loc[df_bubble['City Types'] == 'Rural', :]
 
 #%%
+# Make sure all of the sizes will be visible -- but not too big
 urban_size = urban_df['Driver Count per City'] * 6
 suburban_size = suburban_df['Driver Count per City'] * 6
 rural_size = rural_df['Driver Count per City'] * 6
 
+#  Create a graph for each one because the coloring is easier this way
 ax1 = urban_df.plot(kind='scatter', x='Total Number of Rides (Per City)', y='Average Fare ($)', s=urban_size, color='lightblue', edgecolor='black', alpha=0.7, label='Urban')    
+
 ax2 = suburban_df.plot(kind='scatter', x='Total Number of Rides (Per City)', y='Average Fare ($)', s=suburban_size, color='gold', edgecolor='black', alpha=0.7, ax=ax1, label='Suburban')    
+
 ax3 = rural_df.plot(kind='scatter', x='Total Number of Rides (Per City)', y='Average Fare ($)', s=rural_size, color='lightcoral', edgecolor='black', alpha=0.7, ax=ax1, label='Rural')
 
 # Plot formatting
