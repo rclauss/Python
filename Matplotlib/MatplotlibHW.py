@@ -69,6 +69,63 @@ plt.grid()
 plt.title('Ride Sharing Data Compare')
 plt.xlabel('Total Number of Rides (Per City)')
 plt.ylabel('Average Fare ($)')
+#%%
+
+city_type = city_data.set_index("city")
+city_type = city_type['type']
+
+pie_df = ride_data.join(city_type, on='city')
+
+pie_df_urban = pie_df.loc[pie_df['type'] == 'Urban', :]
+pie_df_suburban = pie_df.loc[pie_df['type'] == 'Suburban', :]
+pie_df_rural = pie_df.loc[pie_df['type'] == 'Rural', :]
 
 
+pie_df_urban = pie_df_urban.groupby('type')
+pie_df_suburban = pie_df_suburban.groupby('type')
+pie_df_rural = pie_df_rural.groupby('type')
+
+explode = [0.1, 0.1, 0.1]
+text = {'fontsize' : 15}
+wedge = {'edgecolor' : 'black'}
+
+
+fare_urban = pie_df_urban['fare'].sum()
+fare_suburban = pie_df_suburban['fare'].sum()
+fare_rural = pie_df_rural['fare'].sum()
+
+fare_labels = ['Urban', 'Suburban', 'Rural']
+fare_totals = pd.Series([fare_urban, fare_suburban, fare_rural])
+fare_colors = ['lightblue', 'gold', 'lightcoral']
+
+plt.axis("equal")
+plt.title('% of Total Fares by City Type', y=1.80, fontsize=15)
+plt.pie(fare_totals, radius=3, textprops=text, wedgeprops=wedge, labels=fare_labels, explode=explode, colors=fare_colors,
+        autopct="%1.1f%%", shadow=True, startangle=70)
+#%%
+
+rides_urban = pie_df_urban['fare'].count()
+rides_suburban = pie_df_suburban['fare'].count()
+rides_rural = pie_df_rural['fare'].count()
+#%%
+rides_labels = ['Urban', 'Suburban', 'Rural']
+rides_totals = pd.Series([rides_urban, rides_suburban, rides_rural])
+
+plt.axis("equal")
+plt.title('% of Total Rides by City Type', y=1.80, fontsize=15)
+
+plt.pie(rides_totals, radius=3, textprops=text, wedgeprops=wedge, labels=rides_labels, explode=explode, colors=fare_colors, autopct="%1.1f%%", shadow=True, startangle=70)
+#%%
+
+drivers_df = city_data.groupby('type')
+drivers_total = drivers_df['driver_count'].sum()
+
+drivers_labels = ['Urban', 'Suburban', 'Rural']
+drivers_totals = [drivers_total['Urban'], drivers_total['Suburban'], drivers_total['Rural']]
+drivers_colors = ['lightblue', 'gold', 'lightcoral']
+
+plt.axis("equal")
+plt.title('% of Total Drivers by City Type', y=1.80, fontsize=15)
+plt.pie(drivers_totals, radius=3, textprops=text, wedgeprops=wedge, labels=drivers_labels, explode=explode, colors=drivers_colors,
+        autopct="%1.1f%%", shadow=True, startangle=40)
 
