@@ -85,6 +85,7 @@ pie_df_urban = pie_df_urban.groupby('type')
 pie_df_suburban = pie_df_suburban.groupby('type')
 pie_df_rural = pie_df_rural.groupby('type')
 
+#Set up configs for the pie chart
 explode = [0.1, 0.1, 0.1]
 text = {'fontsize' : 15}
 wedge = {'edgecolor' : 'black'}
