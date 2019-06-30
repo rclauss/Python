@@ -11,16 +11,16 @@ import pandas as pd
 import numpy as np
 import requests
 import time
-# Incorporated citipy to determine city based on latitude and longitude
 from citipy import citipy
-# Import API key
+
+
 api_key = "62a3700bc9f71d1a4d2653549c184851"
 
 
 url = "http://api.openweathermap.org/data/2.5/weather?"
 units = "imperial"
 
-# Build partial query URL
+
 query_url = f"{url}appid={api_key}&units={units}&q="
 
 #%%
@@ -88,6 +88,15 @@ for city in cities:
     except:
         continue
 #%%
+        
+main_zipped = list(zip(found_city,lat,temp,humidity,wind))    
+main_zipped_df = pd.DataFrame(main_zipped,index=found_city,columns=["City","Lat","Temp","Humidity","Wind"])
+main_zipped_df.drop("City",axis=1,inplace=True)
+
+
+
+#%%   
+ 
 zipped = list(zip(found_city,lat,temp))
 
 zipped_df = pd.DataFrame(zipped, index=found_city,columns=["City","Lat","Temp"])
