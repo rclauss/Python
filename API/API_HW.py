@@ -13,18 +13,14 @@ import requests
 import time
 from citipy import citipy
 
-
 api_key = "62a3700bc9f71d1a4d2653549c184851"
-
 
 url = "http://api.openweathermap.org/data/2.5/weather?"
 units = "imperial"
 
-
 query_url = f"{url}appid={api_key}&units={units}&q="
 
 #%%
-
 
 # Output File (CSV)
 #output_data_file = "output_data/cities.csv"
@@ -40,7 +36,9 @@ cities = []
 # Create a set of random lat and lng combinations
 lats = np.random.uniform(low=-90.000, high=90.000, size=1500)
 lngs = np.random.uniform(low=-180.000, high=180.000, size=1500)
+
 lat_lngs = zip(lats, lngs)
+#%%
 
 # Identify nearest city for each lat, lng combination
 for lat_lng in lat_lngs:
@@ -54,8 +52,6 @@ for lat_lng in lat_lngs:
 len(cities)
 
 
-#%%
-#cities_cut = cities[0:10]
 #%%
 lat = []
 temp = []
