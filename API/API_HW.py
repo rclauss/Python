@@ -10,7 +10,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import requests
-import time
 from citipy import citipy
 
 api_key = "62a3700bc9f71d1a4d2653549c184851"
