@@ -11,6 +11,11 @@ import pandas as pd
 import numpy as np
 import requests
 from citipy import citipy
+import time
+
+
+
+
 
 api_key = "62a3700bc9f71d1a4d2653549c184851"
 
@@ -60,8 +65,12 @@ wind = []
 
 
 
+
 for city in cities:
     try:
+        
+        
+        t0 = time.time()
         
         response = requests.get(query_url + city).json()
         lat_checked = response["coord"]["lat"]
@@ -73,7 +82,11 @@ for city in cities:
         humidity.append(response["main"]["humidity"])
         wind.append(response["wind"]["speed"])
         found_city.append(city)
+        
+        t1 = time.time()
+        total = t1-t0
         print("------------------------------------------------------")
+        print(f"The total call to the API took {total} seconds")
         print(f"The city being checked is: {city}")
         print(f"The latitude being checked is: {lat_checked}")
         print(f"The temperature information received is: {temp_found}")
