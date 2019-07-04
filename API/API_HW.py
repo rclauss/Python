@@ -158,7 +158,7 @@ plt.scatter(zipped_df["Lat"], zipped_df["Wind_Speed"])
 
 #%%
 
-zipped = list(zip(found_city, lat, clouds[1] ))
+zipped = list(zip(found_city, lat, clouds ))
 
 zipped_df = pd.DataFrame(zipped, index=found_city,columns=["City","Lat","Cloud_Cover"])
 
@@ -169,7 +169,7 @@ plt.xlabel("Latitude")
 plt.ylabel("Cloud_Cover")
 plt.title("Latitude vs. Cloud_Cover")
 
-plt.scatter(zipped_df["Lat"], zipped_df["Cloud_Clover"])
+plt.scatter(zipped_df["Lat"], zipped_df["Cloud_Cover"])
 
 
 
