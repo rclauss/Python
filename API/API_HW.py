@@ -106,8 +106,8 @@ for city in cities:
     
 #%%
         
-main_zipped = list(zip(found_city,lat,temp,humidity,wind))    
-main_zipped_df = pd.DataFrame(main_zipped,index=found_city,columns=["City","Lat","Temp","Humidity","Wind"])
+main_zipped = list(zip(found_city,lat,temp,humidity,wind,clouds ))    
+main_zipped_df = pd.DataFrame(main_zipped,index=found_city,columns=["City","Lat","Temp","Humidity","Wind","Clouds"])
 main_zipped_df.drop("City",axis=1,inplace=True)
 
 
@@ -172,8 +172,6 @@ plt.title("Latitude vs. Cloud_Cover")
 plt.scatter(zipped_df["Lat"], zipped_df["Cloud_Cover"])
 
 
-
-
-
-
+#%%
+#main_zipped_df.to_csv("Weather_Info.csv")
 
