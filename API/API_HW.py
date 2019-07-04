@@ -62,8 +62,9 @@ temp = []
 found_city = []
 humidity = []
 wind = []
+clouds = []
 
-
+#%%
 
 
 for city in cities:
@@ -72,19 +73,24 @@ for city in cities:
         
         t0 = time.time()
         
+        ####################################################
         response = requests.get(query_url + city).json()
         lat_checked = response["coord"]["lat"]
         temp_found = response["main"]["temp"]
         humidity_found = response["main"]["humidity"]
         wind_found = response["wind"]["speed"]
+        cloud_found = response["clouds"]["all"]
         lat.append(response['coord']['lat'])
         temp.append(response['main']['temp'])
         humidity.append(response["main"]["humidity"])
         wind.append(response["wind"]["speed"])
+        clouds.append(cloud_found)
         found_city.append(city)
+        ####################################################
         
         t1 = time.time()
         total = t1-t0
+        
         print("------------------------------------------------------")
         print(f"The total call to the API took {total} seconds")
         print(f"The city being checked is: {city}")
@@ -92,9 +98,12 @@ for city in cities:
         print(f"The temperature information received is: {temp_found}")
         print(f"The humidity information received is: {humidity_found}")
         print(f"The wind speed information received is: {wind_found}")
+        print(f"The cloud cover information received is: {cloud_found}")
         print("------------------------------------------------------")
     except:
         continue
+    
+    
 #%%
         
 main_zipped = list(zip(found_city,lat,temp,humidity,wind))    
@@ -147,6 +156,20 @@ plt.title("Latitude vs. Wind_Speed")
 plt.scatter(zipped_df["Lat"], zipped_df["Wind_Speed"])
 
 
+#%%
+
+zipped = list(zip(found_city, lat, clouds[1] ))
+
+zipped_df = pd.DataFrame(zipped, index=found_city,columns=["City","Lat","Cloud_Cover"])
+
+zipped_df.drop("City",axis=1,inplace=True)
+
+
+plt.xlabel("Latitude")
+plt.ylabel("Cloud_Cover")
+plt.title("Latitude vs. Cloud_Cover")
+
+plt.scatter(zipped_df["Lat"], zipped_df["Cloud_Clover"])
 
 
 
