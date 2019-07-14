@@ -19,7 +19,6 @@ city_data = pd.read_csv("city_data.csv")
 # Merge everthing into one dataset
 
 main_data = city_data.merge(ride_data, on='city', how='left')
-main_data
 
 
 #%%
@@ -41,8 +40,6 @@ types = main_data.drop_duplicates(subset='city', keep='first').set_index('city')
 #%%
 
 df_bubble = pd.concat([avg_fare, total_rides, driver_count,types], axis = 1, sort=False)
-
-df_bubble
 #%%
 df_bubble = df_bubble.rename(columns={'fare' : 'Average Fare ($)',
                                    'ride_id' : 'Total Number of Rides (Per City)',
@@ -53,10 +50,6 @@ df_bubble = df_bubble.rename(columns={'fare' : 'Average Fare ($)',
 urban_df = df_bubble.loc[df_bubble['City Types'] == 'Urban', :]
 suburban_df = df_bubble.loc[df_bubble['City Types'] == 'Suburban', :]
 rural_df = df_bubble.loc[df_bubble['City Types'] == 'Rural', :]
-
-urban_df
-suburban_df
-rural_df
 
 #%%
 # Make sure all of the sizes will be visible -- but not too big
@@ -76,7 +69,6 @@ plt.grid()
 plt.title('Ride Sharing Data Compare')
 plt.xlabel('Total Number of Rides (Per City)')
 plt.ylabel('Average Fare ($)')
-plt.show()
 #%%
 
 city_type = city_data.set_index("city")
@@ -93,7 +85,6 @@ pie_df_urban = pie_df_urban.groupby('type')
 pie_df_suburban = pie_df_suburban.groupby('type')
 pie_df_rural = pie_df_rural.groupby('type')
 
-#Set up configs for the pie chart
 explode = [0.1, 0.1, 0.1]
 text = {'fontsize' : 15}
 wedge = {'edgecolor' : 'black'}
@@ -111,7 +102,6 @@ plt.axis("equal")
 plt.title('% of Total Fares by City Type', y=1.80, fontsize=15)
 plt.pie(fare_totals, radius=3, textprops=text, wedgeprops=wedge, labels=fare_labels, explode=explode, colors=fare_colors,
         autopct="%1.1f%%", shadow=True, startangle=70)
-plt.show()
 #%%
 
 rides_urban = pie_df_urban['fare'].count()
@@ -125,7 +115,6 @@ plt.axis("equal")
 plt.title('% of Total Rides by City Type', y=1.80, fontsize=15)
 
 plt.pie(rides_totals, radius=3, textprops=text, wedgeprops=wedge, labels=rides_labels, explode=explode, colors=fare_colors, autopct="%1.1f%%", shadow=True, startangle=70)
-plt.show()
 #%%
 
 drivers_df = city_data.groupby('type')
@@ -139,5 +128,4 @@ plt.axis("equal")
 plt.title('% of Total Drivers by City Type', y=1.80, fontsize=15)
 plt.pie(drivers_totals, radius=3, textprops=text, wedgeprops=wedge, labels=drivers_labels, explode=explode, colors=drivers_colors,
         autopct="%1.1f%%", shadow=True, startangle=40)
-plt.show()
 
