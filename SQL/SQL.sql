@@ -5,8 +5,7 @@ DROP TABLE IF EXISTS employees;
 DROP TABLE IF EXISTS salaries;
 DROP TABLE IF EXISTS titles;
 
--- Exported from QuickDBD: Specifying Data Types, Primary Keys & Foreign Keys 
--- Import CSV Files Into Corresponding SQL Table
+
 CREATE TABLE "departments" (
     "dept_no" VARCHAR   NOT NULL,
     "dept_name" VARCHAR   NOT NULL,
