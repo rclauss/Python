@@ -128,6 +128,7 @@ plt.pie(rides_totals, radius=3, textprops=text, wedgeprops=wedge, labels=rides_l
 plt.show()
 #%%
 
+
 drivers_df = city_data.groupby('type')
 drivers_total = drivers_df['driver_count'].sum()
 
@@ -140,4 +141,6 @@ plt.title('% of Total Drivers by City Type', y=1.80, fontsize=15)
 plt.pie(drivers_totals, radius=3, textprops=text, wedgeprops=wedge, labels=drivers_labels, explode=explode, colors=drivers_colors,
         autopct="%1.1f%%", shadow=True, startangle=40)
 plt.show()
+
+##adding comment to test vi
 
